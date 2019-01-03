@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+	<title>Title</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="main.css"/>
+    <script type="text/javascript" src="diamond_square.js"></script>
+    <script type="text/javascript" src="draw.js"></script>
+	<script type="text/javascript" src="scripts.js"></script>
+</head>
+<body>
+    <canvas id="render"></canvas>
+    <script>
+        canvas = document.getElementById("render");
+        canvas.width = window.innerWidth * 0.98;
+        canvas.height = window.innerHeight * 0.98;
+    </script>
+    <br>
+    <table>
+        <td> <canvas id="map" width="256" height="256"></canvas>
+        </td>
+        <td>
+            <form>
+                Roughness  <input type="number" id="inputRoughness" value="0.4"> <br>
+                Power  <input type="number" id="inputPower" value="1"> <br>
+                Water Level  <input type="number" id="waterLevel" value="80"> <br>
+                Stretch  <input type="number" id="inputStretch" value="0.2"> <br>
+                Size  <input type="number" id="inputSize" value="9"> <br>
+                Seeds  <input type="number" id="seed1" value="150">
+                <input type="number" id="seed2" value="150">
+                <input type="number" id="seed3" value="150">
+                <input type="number" id="seed4" value="150"><br>
+                Detail  <input type="number" id="inputDetail" value="0"> <br>
+                
+                <button type="button" onclick="initSequence();">Submit</button>
+                <button type="button" onclick="increaseResolutionSequence();">Increase Resoltion</button>
+            </form>
+        </td>
+    </table>
+</body>
+</html>
