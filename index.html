@@ -1,41 +1,36 @@
 <!doctype html>
 <html>
 <head>
-	<title>Title</title>
+	<title>Terrain Generator</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<link rel="stylesheet" href="main.css"/>
-    <script type="text/javascript" src="diamond_square.js"></script>
-    <script type="text/javascript" src="draw.js"></script>
-	<script type="text/javascript" src="scripts.js"></script>
+	<link rel="stylesheet" href="css/main.css"/>
+	<link rel="stylesheet" href="css/buttons.css"/>
+	<script src='simplex/perlin.js'></script>
+	<script type="text/javascript" src="js/scripts.js"></script>
+	<script type="text/javascript" src="js/RGBColor.js"></script>
+	<script type="text/javascript" src="js/t_gen.js"></script>
+	<script type="text/javascript" src="js/biome.js"></script>
+
+	<script type="text/javascript" src="biomes/island.js"></script>
+	<script type="text/javascript" src="biomes/canyon.js"></script>
+	<script type="text/javascript" src="biomes/volcano.js"></script>
 </head>
 <body>
     <canvas id="render"></canvas>
     <script>
-        canvas = document.getElementById("render");
+        var canvas = document.getElementById("render");
         canvas.width = window.innerWidth * 0.98;
-        canvas.height = window.innerHeight * 0.98;
+        canvas.height = Math.max(canvas.width * 3/4, 400);
     </script>
     <br>
-    <table>
-        <td> <canvas id="map" width="256" height="256"></canvas>
-        </td>
-        <td>
-            <form>
-                Roughness  <input type="number" id="inputRoughness" value="0.4"> <br>
-                Power  <input type="number" id="inputPower" value="1"> <br>
-                Water Level  <input type="number" id="waterLevel" value="80"> <br>
-                Stretch  <input type="number" id="inputStretch" value="0.2"> <br>
-                Size  <input type="number" id="inputSize" value="9"> <br>
-                Seeds  <input type="number" id="seed1" value="150">
-                <input type="number" id="seed2" value="150">
-                <input type="number" id="seed3" value="150">
-                <input type="number" id="seed4" value="150"><br>
-                Detail  <input type="number" id="inputDetail" value="0"> <br>
-                
-                <button type="button" onclick="initSequence();">Submit</button>
-                <button type="button" onclick="increaseResolutionSequence();">Increase Resoltion</button>
-            </form>
-        </td>
-    </table>
+    <form>
+		Biome <select name="biomes" id="biomes">
+			</select>
+		Seed  <input type="number" id="seed" value="">
+        <button type="button" onclick="updateSequence();">Submit</button>
+		<button type="button" onclick="toggleAnimate();">Animate!</button>
+		<!-- <a href="#" class="btn" onclick="updateSequence();">Submit</a> -->
+		<!-- <button type="button" onclick="updateSequence();">Submit</button> -->
+    </form>
 </body>
 </html>
