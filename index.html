@@ -20,17 +20,16 @@
     <script>
         var canvas = document.getElementById("render");
         canvas.width = window.innerWidth * 0.98;
-        canvas.height = Math.max(canvas.width * 3/4, 400);
+        canvas.height = canvas.width * 0.6;
     </script>
     <br>
     <form>
 		Biome <select name="biomes" id="biomes">
 			</select>
-		Seed  <input type="number" id="seed" value="">
-        <button type="button" onclick="updateSequence();">Submit</button>
-		<button type="button" onclick="toggleAnimate();">Animate!</button>
-		<!-- <a href="#" class="btn" onclick="updateSequence();">Submit</a> -->
-		<!-- <button type="button" onclick="updateSequence();">Submit</button> -->
+		&nbsp; Seed  <input type="number" id="seed" value="">
+		&nbsp; Resolution <input type="number" id="res" value="600" min="50" max="1000">
+        &nbsp; <button type="button" onclick="updateSequence();">Submit</button>
+		&nbsp; <button type="button" onclick="toggleAnimate();">Animate!</button>
     </form>
 </body>
 </html>

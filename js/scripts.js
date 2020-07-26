@@ -1,6 +1,9 @@
 var canvas, ctx, cWidth, cHeight, z;
 var biome_dict = {};
 var animate = false;
+var centerx, centery; 
+var scaler, scaler_int;
+var resolution = 400;
 
 var f = function(message) {if (Math.random() > 0.9999) console.log(str);};
 
@@ -18,7 +21,12 @@ function initCanvas()
 {
 	canvas = document.getElementById("render");
 	ctx = canvas.getContext("2d");
-	cWidth = cHeight = canvas.width;
+	cWidth = cHeight = resolution;
+    scaler = canvas.width / resolution; 
+    scaler_int = Math.ceil(scaler); 
+    centerx = Math.round(canvas.width / 2);
+    centery = Math.round(canvas.height / 2);
+    console.log(scaler);
 }
 
 function generateImageData(data)
@@ -51,16 +59,26 @@ function generateImageData(data)
 			var moisture = biome.moisture(x, y, z);
 			var slope = findSlope(biome, x, y, z, height);
 			var color = biome.color(height, moisture, slope);
-			var heightAmplifier = getHeightAmplifier(height, moisture);
-			var cx = Math.round((x + y) / 2);
-			var cy = Math.round((x - y) / 4
-						  	  + canvas.height * 7/12
-						      - height * 50 * heightAmplifier);
+			var heightAmplifier = 50 * getHeightAmplifier(height, moisture);
+			var unscaledx = ((x + y) / 2);
+			var unscaledy = ((x - y) / 4
+						  	  + cHeight * 0.54 
+						      - height * heightAmplifier);
+            unscaledx -= cWidth / 2;
+            unscaledy -= cHeight / 2;
 			for (var i = 0; i < 5; i ++)
+			//for (var i = 0; i < Math.abs(slope * heightAmplifier) + 2; i ++)
 			{
-				var cell = (cx + cy * canvas.width) * 4;
-				cy --;
-				fillCell(cell, color);
+                var cx = Math.round(unscaledx * scaler) + centerx;
+                var cy = Math.round((unscaledy - i) * scaler) + centery;
+                for (var dx = 0; dx < scaler_int; dx ++)
+                {
+                    for (var dy = 0; dy < scaler_int; dy ++)
+                    {
+                        var cell = (cx + dx + (cy + dy) * canvas.width) * 4;
+				        fillCell(cell, color);
+                    }
+                }
 			}
 		}
 	}
@@ -92,6 +110,15 @@ function loadSeed()
 	z = parseFloat(input_seed);
 }
 
+function loadResolution()
+{
+	var input_res = document.getElementById("res").value;
+	if (input_res == "") {
+		return;
+	}
+	resolution = parseFloat(input_res);
+}
+
 function toggleAnimate()
 {
 	animate = !animate;
@@ -101,6 +128,7 @@ function toggleAnimate()
 function updateSequence()
 {
 	loadSeed();
+    loadResolution();
 	initCanvas();
 	requestAnimationFrame(drawRender);
 }

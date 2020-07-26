@@ -13,3 +13,13 @@ form
     background-color: white;
     margin: 10px;
 }
+
+input[id="res"]
+{
+    width: 50px;
+}
+
+input[id="seed"]
+{
+    width: 100px;
+}
